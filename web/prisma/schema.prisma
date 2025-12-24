@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Example User model - แก้ไขตามความต้องการของโปรเจกต์
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Example Role enum - แก้ไขตามความต้องการของโปรเจกต์
+enum Role {
+  ADMIN
+  MANAGER
+  USER
+}
+
+

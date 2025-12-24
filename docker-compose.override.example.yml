@@ -1,0 +1,17 @@
+# ไฟล์นี้เป็นตัวอย่างสำหรับ override docker-compose.yml
+# คัดลอกเป็น docker-compose.override.yml และแก้ไขค่าตามต้องการ
+# docker-compose จะอ่านไฟล์ override อัตโนมัติ
+
+version: '3.8'
+
+services:
+  postgres:
+    environment:
+      # เปลี่ยน username, password, และ database name ตามต้องการ
+      POSTGRES_USER: your_username
+      POSTGRES_PASSWORD: your_secure_password
+      POSTGRES_DB: your_database_name
+    # ถ้าต้องการเปลี่ยน port mapping
+    # ports:
+    #   - "5433:5432"  # ใช้ port 5433 แทน 5432
+
