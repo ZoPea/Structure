@@ -1,21 +1,12 @@
 import type { Metadata } from 'next';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import { LanguageProvider } from '@/contexts/LanguageContext';
+import Navbar from '@/components/Navbar';
 import './globals.css';
-import { Toaster } from '@/components/Toaster';
-
-// ? add toastify for toast messages notification
-// todo: add analytics for tracking user behavior
-// todo: add SEO optimization for better search engine visibility
-// todo: add social media sharing for better social media visibility
-// todo: add contact form for user to contact the website owner
-// todo: add privacy policy for user to know how the website collects and uses their data
-// todo: add terms of service for user to know how the website works
-// todo: add cookie policy for user to know how the website uses cookies
-// todo: add theme toggle for user to switch between light and dark mode
-// todo: add 2 languages: thai and english
 
 export const metadata: Metadata = {
-  title: 'Template App',
-  description: 'Template application with authentication and toast notifications',
+  title: 'Main Website',
+  description: 'Main website with multi-language and theme support',
 };
 
 export default function RootLayout({
@@ -24,11 +15,62 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="th">
+    <html lang="th" suppressHydrationWarning>
+      <head>
+        {/* Script สำหรับป้องกัน flash ของ theme และ language ก่อน React hydrate */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  // ตั้งค่า theme และเก็บไว้ใน data attribute
+                  var theme = localStorage.getItem('theme');
+                  if (theme !== 'light' && theme !== 'dark') {
+                    var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    theme = prefersDark ? 'dark' : 'light';
+                  }
+                  if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.setAttribute('data-theme', 'light');
+                  }
+                  
+                  // ตั้งค่า language และเก็บไว้ใน data attribute เพื่อให้ React อ่านได้
+                  var language = localStorage.getItem('language');
+                  if (language !== 'th' && language !== 'en') {
+                    // ถ้าไม่มีค่า ให้ใช้ browser language
+                    language = navigator.language.startsWith('th') ? 'th' : 'en';
+                  }
+                  if (language) {
+                    document.documentElement.setAttribute('lang', language);
+                    document.documentElement.setAttribute('data-language', language);
+                  } else {
+                    document.documentElement.setAttribute('lang', 'th');
+                    document.documentElement.setAttribute('data-language', 'th');
+                  }
+                } catch (e) {
+                  // fallback
+                  document.documentElement.setAttribute('lang', 'th');
+                  document.documentElement.setAttribute('data-language', 'th');
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body>
-        {children}
-        <Toaster />
+        <ThemeProvider>
+          <LanguageProvider>
+            <Navbar />
+            <main>
+              {children}
+            </main>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
 }
+

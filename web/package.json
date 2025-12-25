@@ -11,10 +11,13 @@
   "dependencies": {
     "@prisma/client": "^6.19.1",
     "bcryptjs": "^3.0.3",
+    "country-flag-icons": "^1.6.4",
     "jsonwebtoken": "^9.0.3",
     "next": "16.1.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-flags-select": "^2.5.0",
+    "react-icons": "^5.5.0",
     "sonner": "^2.0.7"
   },
   "devDependencies": {

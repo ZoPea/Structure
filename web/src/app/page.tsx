@@ -1,111 +1,176 @@
 'use client';
 
-import Link from 'next/link';
+import React from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-/**
- * หน้าหลัก (Home Page)
- * 
- * หน้าที่:
- * - แสดงปุ่มสำหรับ navigation ไปยัง functions ต่างๆ
- * - เป็น landing page ของแอปพลิเคชัน
- * - ใช้ client-side routing (SPA)
- * - รองรับ i18n (th/en)
- */
 export default function HomePage() {
+  const { t, language, mounted } = useLanguage();
 
   return (
-    <div className="flex flex-col items-center py-8 px-4 sm:px-8 bg-blue-50 dark:bg-gray-900" suppressHydrationWarning>
-      <div className="max-w-4xl w-full">
-        {/* Header */}
-        <div className="text-center mb-8" suppressHydrationWarning>
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4" suppressHydrationWarning>
-            Home Page
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300" suppressHydrationWarning>
-            This is the home page of the application
-          </p>
-        </div>
-
-        {/* Navigation Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Authentication Section */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-              🔐 Authentication
-            </h2>
-            <div className="space-y-3">
-              <Link
-                href="/login"
-                className="block w-full px-4 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-center font-medium"
-              >
-                Login
-              </Link>
-              <Link
-                href="/register"
-                className="block w-full px-4 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-center font-medium"
-              >
-                Register
-              </Link>
-              <Link
-                href="/dashboard"
-                className="block w-full px-4 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors text-center font-medium"
-              >
-                Dashboard
-              </Link>
-            </div>
-          </div>
-
-          {/* Features Section */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-              ⚡ Features
-            </h2>
-            <div className="space-y-3">
-              <Link
-                href="/examples/toast-example"
-                className="block w-full px-4 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors text-center font-medium"
-              >
-                Toast Examples
-              </Link>
-              {/* เพิ่มปุ่มสำหรับ features อื่นๆ ที่จะเพิ่มในอนาคต */}
-              <div className="px-4 py-3 bg-gray-100 dark:bg-gray-700 rounded-lg text-center text-gray-500 dark:text-gray-400 text-sm">
-                Coming Soon
-              </div>
-            </div>
-          </div>
-
-          {/* API Section */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 border border-gray-200 dark:border-gray-700">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
-              🔌 API
-            </h2>
-            <div className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-              <div className="p-2 bg-gray-50 dark:bg-gray-700 rounded">
-                <code className="text-xs">POST /api/auth/login</code>
-              </div>
-              <div className="p-2 bg-gray-50 dark:bg-gray-700 rounded">
-                <code className="text-xs">POST /api/auth/register</code>
-              </div>
-              <div className="p-2 bg-gray-50 dark:bg-gray-700 rounded">
-                <code className="text-xs">GET /api/auth/me</code>
-              </div>
-              <div className="p-2 bg-gray-50 dark:bg-gray-700 rounded">
-                <code className="text-xs">POST /api/auth/logout</code>
-              </div>
-            </div>
+    <div className="min-h-screen bg-white dark:bg-gray-900" suppressHydrationWarning>
+      {/* Hero Section */}
+      <section
+        id="home"
+        className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 py-20 sm:py-32"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" suppressHydrationWarning>
+              {t('page.welcome')}
+            </h1>
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto" suppressHydrationWarning>
+              {t('page.description')}
+            </p>
+            <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-lg" suppressHydrationWarning>
+              {t('page.getStarted')}
+            </button>
           </div>
         </div>
+      </section>
 
-        {/* Footer Info */}
-        <div className="mt-8 text-center text-gray-600 dark:text-gray-400">
-          <p className="mb-2">
-            Built with Next.js and Tailwind CSS
-          </p>
-          <p className="text-sm">
-            Ready to use
-          </p>
+      {/* About Section */}
+      <section
+        id="about"
+        className="py-20 bg-white dark:bg-gray-900"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4" suppressHydrationWarning>
+              {t('nav.about')}
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" suppressHydrationWarning>
+              {t('page.learnMore')}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[1, 2, 3].map((item) => (
+              <div
+                key={item}
+                className="p-6 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow"
+              >
+                <div className="w-12 h-12 bg-blue-600 rounded-lg mb-4 flex items-center justify-center">
+                  <span className="text-white text-2xl font-bold">{item}</span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2" suppressHydrationWarning>
+                  {mounted ? (language === 'th' ? `คุณสมบัติ ${item}` : `Feature ${item}`) : `คุณสมบัติ ${item}`}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300" suppressHydrationWarning>
+                  {t('page.featureDescription')}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Services Section */}
+      <section
+        id="services"
+        className="py-20 bg-gray-50 dark:bg-gray-800"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4" suppressHydrationWarning>
+              {mounted ? t('nav.services') : 'บริการ'}
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto" suppressHydrationWarning>
+              {t('page.servicesDescription')}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map((item) => (
+              <div
+                key={item}
+                className="p-6 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-shadow"
+              >
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2" suppressHydrationWarning>
+                  {mounted ? (language === 'th' ? `บริการ ${item}` : `Service ${item}`) : `บริการ ${item}`}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300" suppressHydrationWarning>
+                  {t('page.serviceDescription')}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section
+        id="contact"
+        className="py-20 bg-white dark:bg-gray-900"
+      >
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4" suppressHydrationWarning>
+              {t('nav.contact')}
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300" suppressHydrationWarning>
+              {t('page.contactDescription')}
+            </p>
+          </div>
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-8 border border-gray-200 dark:border-gray-700">
+            <form className="space-y-6">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  suppressHydrationWarning
+                >
+                  {t('page.name')}
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder={t('page.namePlaceholder')}
+                  suppressHydrationWarning
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  suppressHydrationWarning
+                >
+                  {t('page.email')}
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder={t('page.emailPlaceholder')}
+                  suppressHydrationWarning
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  suppressHydrationWarning
+                >
+                  {t('page.message')}
+                </label>
+                <textarea
+                  id="message"
+                  rows={4}
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder={t('page.messagePlaceholder')}
+                  suppressHydrationWarning
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
+                suppressHydrationWarning
+              >
+                {t('page.contactButton')}
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
+
